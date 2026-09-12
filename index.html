@@ -6,7 +6,7 @@
 <title>Proverbs Study Group</title>
 <style>
   :root{
-    --brown:#6b4423; --brown2:#8b5a2b; --bg:#f4f1ea; --card:#ffffff;
+    --brown:#c9a227; --brown2:#e2b93b; --bg:#faf7ee; --card:#ffffff;
     --ink:#3b2a1a; --muted:#8a7a66; --gold:#c9a227; --gold-soft:#f7ecd2;
     --tip:#fff8dc; --tip-border:#e6d9a8; --shadow:0 2px 10px rgba(107,68,35,.12);
     --radius:14px;
@@ -90,7 +90,7 @@ var LS = {
   clear: function(){ Object.keys(localStorage).forEach(function(k){ if(k.indexOf('psg_')===0) localStorage.removeItem(k); }); }
 };
 
-var STUDY_MONTHS = ['January','March','May','July','August','October','December'];
+var STUY_MONTHS = ['January','March','May','July','August','October','December'];
 var VERSIONS = ['NKJV','KJV','ESV','NIV','NLT'];
 var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
@@ -138,7 +138,7 @@ function shellStart(user){
 function authView(){
   return '<main style="max-width:460px">'+
     '<div class="card" style="margin-top:3rem">'+
-    '<div class="center" style="margin-bottom:.8rem"><h2 style="border:none;justify-content:center;display:inline-flex;align-items:center;gap:.5rem"><span class="logo" style="display:inline-flex;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6b4423,#8b5a2b);color:#c9a227;align-items:center;justify-content:center;font-size:1.4rem;">P</span></h2></div>'+
+    '<div class="center" style="margin-bottom:.8rem"><h2 style="border:none;justify-content:center;display:inline-flex;align-items:center;gap:.5rem"><span class="logo" style="display:inline-flex;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#c9a227,#e2b93b);color:#c9a227;align-items:center;justify-content:center;font-size:1.4rem;">P</span></h2></div>'+
     '<h2 style="text-align:center;border:none;">Proverbs Study Group</h2>'+
     '<p class="muted center" style="margin-bottom:1rem">A 31-day journey through the Book of Proverbs, one chapter a day, together.</p>'+
     '<form id="signupForm">'+
@@ -228,7 +228,7 @@ function sharedReflectionsView(){
     any = true;
     html += '<div class="reflection"><div class="meta">Proverbs '+today+' &mdash; private (visible only to you)</div>';
     if(tr.q1) html += '<p><strong>Favorite verse(s):</strong> '+esc(tr.q1)+'</p>';
-    if(tr.q2) html += '<p><strong>To apply:</strong> '+esc(tr.q2)+'</p>';
+    if(tr.q2) html += '<p><strong>To aply:</strong> '+esc(tr.q2)+'</p>';
     if(tr.q3) html += '<p><strong>Want to discuss:</strong> '+esc(tr.q3)+'</p>';
     html += '</div>';
   }
@@ -242,8 +242,8 @@ function leaderToolsView(){
   var msgs = getMessages();
   var html = '<div class="card"><h2>Leader Tools</h2>'+
     '<form id="msgForm"><label for="msgTarget">Send to</label>'+
-    '<select id="msgTarget">'+targets.map(function(t){ return '<option>'+esc(t)+'</option>'; }).join('')+'</select>'+
-    '<label for="msgBody">Encouragement / accountability message</label>'+
+    '<select id="msgTarget">'+targets.map(function(t){ return '<option>'+esc(t)+'</option>; }).join('')+'</select>'+
+    '<label for="msgBody"Encouragement / accountability message</label>'+
     '<textarea id="msgBody" maxlength="1500" placeholder="Write a word of encouragement or a gentle accountability nudge..."></textarea>'+
     '<div style="margin-top:.8rem"><button type="submit" class="primary">Send Message</button></div>'+
     '<div id="msgFeedback"></div></form>';
