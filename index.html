@@ -5,476 +5,450 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proverbs Study Group</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f4f1ea;color:#333;min-height:100vh;display:flex;flex-direction:column;}
-.topbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
-  background:linear-gradient(135deg,#6b4423,#8b5a2b);color:#fff;padding:.7rem 1.1rem;position:sticky;top:0;z-index:10;}
-.topbar .brand{display:flex;align-items:center;gap:.55rem;font-weight:700;}
-.topbar .logo{display:inline-flex;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);
-  color:#c9a227;align-items:center;justify-content:center;font-size:1.15rem;}
-.topbar .navbtns{display:flex;gap:.4rem;flex-wrap:wrap;}
-.topbar button{background:rgba(255,255,255,.15);color:#fff;border:none;padding:.45rem .9rem;
-  border-radius:6px;cursor:pointer;font-size:.95rem;transition:.2s;}
-.topbar button:hover{background:rgba(255,255,255,.3);}
-.topbar button.active{background:rgba(255,255,255,.35);font-weight:700;}
-.topbar button.logout{background:rgba(180,40,40,.35);}
-main{flex:1;max-width:900px;width:100%;margin:1.5rem auto;padding:0 1rem;}
-.card{background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:1.5rem;}
-h2{color:#6b4423;margin-bottom:1rem;}
-h3{color:#8b5a2b;margin:1rem 0 .5rem;}
-label{display:block;margin:.5rem 0 .25rem;font-weight:600;}
-input,select,textarea,button{width:100%;padding:.6rem;border:1px solid #ccc;border-radius:6px;font-size:1rem;margin-bottom:.75rem;font-family:inherit;}
-textarea{min-height:80px;resize:vertical;}
-button.primary{background:#6b4423;color:#fff;border:none;cursor:pointer;font-weight:bold;}
-button.primary:hover{background:#8b5a2b;}
-button.secondary{background:#eee;color:#333;border:none;cursor:pointer;}
-.month-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;margin:1rem 0;}
-.month-chip{padding:.5rem;background:#eee;border-radius:6px;text-align:center;cursor:pointer;border:2px solid transparent;}
-.month-chip.selected{background:#6b4423;color:#fff;border-color:#8b5a2b;}
-.member-list,.message-list{list-style:none;}
-.member-list li,.message-list li{padding:.75rem;background:#faf7f2;border-left:4px solid #6b4423;margin-bottom:.5rem;border-radius:4px;}
-.leader-badge{background:gold;padding:2px 8px;border-radius:12px;font-size:.8rem;margin-left:8px;}
-.tips{background:#fff8e1;border-left:4px solid #f0c419;padding:1rem;border-radius:6px;margin-bottom:1rem;}
-.tips ul{margin-left:1.2rem;}
-.chapter-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
-.bible-links a{display:inline-block;margin-right:.5rem;padding:.4rem .8rem;background:#6b4423;color:#fff;text-decoration:none;border-radius:4px;font-size:.9rem;margin-bottom:.4rem;}
-.bible-links a:hover{background:#8b5a2b;}
-.share-toggle{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
-.share-toggle input{width:auto;margin:0;}
-.answer-block{border:1px solid #ddd;padding:1rem;border-radius:6px;margin-bottom:1rem;}
-.answer-block.shared{background:#eaf6ea;border-color:#6ab04c;}
-.answer-block.private{background:#f9f9f9;}
-footer{background:#6b4423;color:#fff;text-align:center;padding:1rem;margin-top:auto;}
-@media (max-width:600px){header{padding:1rem;}header h1{font-size:1.3rem;}}
+  :root{
+    --brown:#6b4423; --brown2:#8b5a2b; --bg:#f4f1ea; --card:#ffffff;
+    --ink:#3b2a1a; --muted:#8a7a66; --gold:#c9a227; --gold-soft:#f7ecd2;
+    --tip:#fff8dc; --tip-border:#e6d9a8; --shadow:0 2px 10px rgba(107,68,35,.12);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:Georgia,'Times New Roman',serif;
+    background:var(--bg); color:var(--ink); line-height:1.55; min-height:100vh;
+    background-image:radial-gradient(rgba(107,68,35,.05) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+  header{background:linear-gradient(135deg,var(--brown),var(--brown2)); color:#f7f2e8; padding:1.1rem 1.4rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; box-shadow:var(--shadow);}
+  header h1{font-size:1.35rem; letter-spacing:.5px; display:flex; align-items:center; gap:.55rem;}
+  header h1 .logo{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--brown);align-items:center;justify-content:center;font-weight:bold;font-size:1.05rem;}
+  nav{display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.5rem;}
+  nav button{background:transparent;border:1px solid rgba(255,255,255,.45); color:#f7f2e8; padding:.4rem .95rem; border-radius:999px; cursor:pointer; font-family:inherit; font-size:.9rem; transition:.2s;}
+  nav button:hover{background:rgba(255,255,255,.15)}
+  nav button.active{background:var(--gold); color:var(--brown); border-color:var(--gold); font-weight:bold;}
+  main{max-width:860px; margin:1.4rem auto 3rem; padding:0 1rem;}
+  .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:1.3rem 1.4rem; margin-bottom:1.2rem; border:1px solid #ece5d8;}
+  h2{color:var(--brown); font-size:1.15rem; margin-bottom:.7rem; border-bottom:2px solid var(--gold-soft); padding-bottom:.35rem;}
+  h3{color:var(--brown2); font-size:1rem; margin:.8rem 0 .4rem;}
+  label{display:block; font-weight:bold; margin:.7rem 0 .25rem; color:var(--brown); font-size:.92rem;}
+  input[type=text],input[type=email],input[type=password],textarea,select{
+    width:100%; padding:.55rem .7rem; border:1px solid #d8cdb8; border-radius:8px; font-family:inherit; font-size:.95rem; background:#fffdf8; color:var(--ink);
+  }
+  textarea{min-height:80px; resize:vertical;}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--gold-soft); border-color:var(--brown2);}
+  button.primary{background:var(--brown); color:#fff; border:none; padding:.6rem 1.3rem; border-radius:8px; cursor:pointer; font-family:inherit; font-size:.95rem; transition:.2s;}
+  button.primary:hover{background:var(--brown2);}
+  button.secondary{background:#fff; color:var(--brown); border:1px solid var(--brown2); padding:.5rem 1rem; border-radius:8px; cursor:pointer; font-family:inherit;}
+  button.secondary:hover{background:var(--gold-soft);}
+  .note{font-size:.82rem; color:var(--muted); font-style:italic; margin-top:.3rem;}
+  .chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.4rem;}
+  .chip{border:1px solid var(--brown2); background:#fff; color:var(--brown); padding:.4rem .9rem; border-radius:999px; cursor:pointer; font-family:inherit; font-size:.9rem; transition:.15s;}
+  .chip.on{background:var(--brown); color:#fff; font-weight:bold;}
+  .tips{background:var(--tip); border:1px solid var(--tip-border); border-radius:var(--radius); padding:1rem 1.2rem; margin-bottom:1.2rem;}
+  .tips h2{border:none; margin-bottom:.4rem; padding:0;}
+  .tips ul{margin-left:1.1rem;}
+  .tips li{margin:.25rem 0;}
+  .daybanner{background:linear-gradient(135deg,var(--brown2),var(--brown)); color:#fdf9ef; border-radius:var(--radius); padding:1.3rem 1.5rem; margin-bottom:1.2rem; box-shadow:var(--shadow);}
+  .daybanner .big{font-size:1.7rem; font-weight:bold;}
+  .warn{background:#fdeaea; border:1px solid #e4b6b6; color:#8c2f2f; padding:.7rem 1rem; border-radius:10px; margin:.8rem 0;}
+  .badge{display:inline-block; background:linear-gradient(135deg,var(--gold),#e6c65c); color:var(--brown); font-size:.72rem; font-weight:bold; padding:.15rem .55rem; border-radius:999px; margin-left:.4rem; text-transform:uppercase; letter-spacing:.5px;}
+  .member{display:flex; justify-content:space-between; align-items:center; padding:.5rem .3rem; border-bottom:1px dashed #e5dcc9;}
+  .reflection{border-left:4px solid var(--brown2); background:#fffdf8; padding:.8rem 1rem; border-radius:0 10px 10px 0; margin-bottom:.9rem;}
+  .reflection.shared{border-left-color:var(--gold); background:var(--gold-soft);}
+  .reflection .meta{font-size:.8rem; color:var(--muted); margin-bottom:.35rem;}
+  .reflection p{margin:.2rem 0;}
+  .reflection strong{color:var(--brown);}
+  .msg{background:#fffdf8; border:1px solid #e8e0cf; border-radius:10px; padding:.7rem 1rem; margin-bottom:.7rem;}
+  .msg .meta{font-size:.8rem; color:var(--muted);}
+  .links a{display:inline-block; margin:.3rem .5rem .3rem 0; color:var(--brown2); font-weight:bold; text-decoration:none; border-bottom:1px dotted var(--brown2);}
+  .links a:hover{color:var(--brown);}
+  .row{display:flex; gap:.7rem; flex-wrap:wrap; align-items:flex-end;}
+  .row > div{flex:1; min-width:180px;}
+  .check{display:flex; align-items:center; gap:.5rem; margin-top:.4rem; font-size:.9rem;}
+  .check input{width:auto;}
+  .success{background:#e8f4e4; border:1px solid #b9d8ac; color:#3d6b2f; padding:.6rem 1rem; border-radius:10px; margin:.8rem 0;}
+  .center{text-align:center;}
+  .muted{color:var(--muted); font-size:.9rem;}
+  @media (max-width:600px){
+    header{flex-direction:column; align-items:flex-start;}
+    main{margin-top:1rem;}
+    .card{padding:1rem;}
+    .daybanner .big{font-size:1.3rem;}
+    .row > div{min-width:100%;}
+  }
 </style>
 </head>
 <body>
-<header>
-  <h1>📖 Proverbs Study Group</h1>
-  <nav id="mainNav"></nav>
-</header>
-
-<main id="app"></main>
-
-<footer>
-  <p>&copy; 2026 Proverbs Study Group</p>
-</footer>
+<div id="app"></div>
 
 <script>
-// ========== DATA STORE ==========
-const store = {
-  get(key, fallback) {
-    const val = localStorage.getItem(key);
-    return val ? JSON.parse(val) : fallback;
-  },
-  set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+'use strict';
+
+/* ---------- Storage helpers ---------- */
+var LS = {
+  get: function(k, def){ try{ var v = localStorage.getItem('psg_'+k); return v ? JSON.parse(v) : def; }catch(e){ return def; } },
+  set: function(k, v){ localStorage.setItem('psg_'+k, JSON.stringify(v)); },
+  clear: function(){ Object.keys(localStorage).forEach(function(k){ if(k.indexOf('psg_')===0) localStorage.removeItem(k); }); }
+};
+
+var STUDY_MONTHS = ['January','March','May','July','August','October','December'];
+var VERSIONS = ['NKJV','KJV','ESV','NIV','NLT'];
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------- Data model ---------- */
+function getUser(){ return LS.get('user', null); }
+function getGroup(){ return LS.get('group', null); }
+function getReflections(){ return LS.get('reflections', {}); } // keyed by chapter
+function getMessages(){ return LS.get('messages', []); }
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ---------- Router ---------- */
+var currentView = 'dashboard';
+
+function render(){
+  var app = document.getElementById('app');
+  var user = getUser();
+  if(!user){ app.innerHTML = authView(); return; }
+  var html = shellStart(user);
+  if(currentView === 'dashboard') html += dashboardView();
+  else if(currentView === 'group') html += groupView();
+  else if(currentView === 'messages') html += messagesView();
+  html += '</main>';
+  app.innerHTML = html;
+  wire();
+}
+
+function shellStart(user){
+  var g = getGroup();
+  var leaderName = g ? g.leader : '';
+  var isLeader = g && user.name === leaderName;
+  var nav = ['dashboard','group','messages'].map(function(v){
+    return '<button class="'+(currentView===v?'active':'')+'" data-nav="'+v+'">'+
+      v.charAt(0).toUpperCase()+v.slice(1)+(v==='messages'&&getMessages().length?' ('+getMessages().length+')':'')+'</button>';
+  }).join('');
+  nav += '<button data-logout="1">Logout</button>';
+  return '<header><h1><span class="logo">P</span>Proverbs Study Group'+(isLeader?'<span class="badge">Leader</span>':'')+'</h1><nav>'+nav+'</nav></header><main>';
+}
+
+/* ---------- Views ---------- */
+function authView(){
+  return '<main style="max-width:460px">'+
+    '<div class="card" style="margin-top:3rem">'+
+    '<div class="center" style="margin-bottom:.8rem"><h2 style="border:none;justify-content:center;display:inline-flex;align-items:center;gap:.5rem"><span class="logo" style="display:inline-flex;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6b4423,#8b5a2b);color:#c9a227;align-items:center;justify-content:center;font-size:1.4rem;">P</span></h2></div>'+
+    '<h2 style="text-align:center;border:none;">Proverbs Study Group</h2>'+
+    '<p class="muted center" style="margin-bottom:1rem">A 31-day journey through the Book of Proverbs, one chapter a day, together.</p>'+
+    '<form id="signupForm">'+
+    '<label for="suName">Your name</label><input type="text" id="suName" required maxlength="60" autocomplete="name">'+
+    '<label for="suEmail">Email</label><input type="email" id="suEmail" required maxlength="120" autocomplete="email">'+
+    '<div style="margin-top:1.1rem"><button type="submit" class="primary" style="width:100%">Sign Up &amp; Begin</button></div>'+
+    '<p class="note center" style="margin-top:.7rem">Your details are stored only on this device (localStorage).</p>'+
+    '</form></div></main>';
+}
+
+function dashboardView(){
+  var user = getUser(), g = getGroup();
+  var now = new Date();
+  var day = now.getDate();
+  var monthName = MONTH_NAMES[now.getMonth()];
+  var chapter = day; // day of month = chapter
+  var studyMonth = g && g.months.indexOf(monthName) !== -1;
+  var version = g ? g.version : 'NKJV';
+  var refs = getReflections();
+  var r = refs[chapter];
+
+  var html = '<div class="daybanner">'+
+    '<div class="big">Today is '+monthName+' '+day+', '+now.getFullYear()+'</div>'+
+    '<div style="margin-top:.3rem">Today\'s reading: <strong style="font-size:1.2rem">Proverbs '+chapter+'</strong></div>'+
+    (!studyMonth ? '<div class="warn" style="background:rgba(255,235,235,.95);border-color:#d99;">Heads up: '+monthName+' is not one of your selected study months. Your study months are: '+(g?g.months.join(', '):'none yet')+'. You can still read along if you like.</div>' : '')+
+    '<div class="links" style="margin-top:.7rem"><span style="opacity:.8">Read Proverbs '+chapter+' on:</span> '+
+      '<a target="_blank" rel="noopener" href="https://www.biblegateway.com/passage/?search=Proverbs+'+chapter+'&amp;version='+version+'">Bible Gateway</a>'+
+      '<a target="_blank" rel="noopener" href="https://biblehub.com/proverbs/'+chapter+'.htm">Bible Hub</a>'+
+      '<a target="_blank" rel="noopener" href="https://www.bible.com/search/bible?query=Proverbs+'+chapter+'">YouVersion</a>'+
+    '</div></div>';
+
+  // Version switcher
+  html += '<div class="card"><h2>Bible Version</h2><div class="chips" id="versionChips">'+
+    VERSIONS.map(function(v){ return '<button class="chip'+(v===version?' on':'')+'" data-version="'+v+'">'+v+'</button>'; }).join('')+
+    '</div></div>';
+
+  // Tips
+  html += '<div class="tips"><h2>Study Tips</h2><ul>'+
+    '<li><strong>Read early.</strong> Starting your day with the chapter sets the tone for everything after.</li>'+
+    '<li><strong>Better late than never.</strong> Missed the morning? Read it tonight. A late reading still feeds the soul.</li>'+
+    '<li><strong>Share immediately.</strong> When a verse connects, share it with the group right away while it is fresh.</li>'+
+    '<li><strong>Respond to each other.</strong> Encourage and engage with what others share. That is where growth happens.</li>'+
+    '</ul></div>';
+
+  // Daily reflection form
+  html += '<div class="card"><h2>Daily Reflection &mdash; Proverbs '+chapter+'</h2>'+
+    '<form id="reflectionForm" data-chapter="'+chapter+'">'+
+    '<label for="q1">1. Favorite verse(s) from the chapter, and why</label>'+
+    '<textarea id="q1" maxlength="2000">'+(r?esc(r.q1):'')+'</textarea>'+
+    '<label for="q2">2. A verse(s) God is wanting you to apply, and how</label>'+
+    '<textarea id="q2" maxlength="2000">'+(r?esc(r.q2):'')+'</textarea>'+
+    '<label for="q3">3. A verse not quite understood, or you want to talk about more</label>'+
+    '<textarea id="q3" maxlength="2000">'+(r?esc(r.q3):'')+'</textarea>'+
+    '<div class="check"><input type="checkbox" id="shareChk" '+(r&&r.shared?'checked':'')+'><label for="shareChk" style="margin:0;font-weight:normal">Share with group</label></div>'+
+    '<div style="margin-top:.9rem"><button type="submit" class="primary">Save Reflection</button></div>'+
+    '<div id="reflectionMsg"></div></form></div>';
+
+  // Shared reflections
+  html += sharedReflectionsView();
+
+  // Leader tools
+  if(g && g.leader === user.name) html += leaderToolsView();
+
+  return html;
+}
+
+function sharedReflectionsView(){
+  var refs = getReflections();
+  var chapters = Object.keys(refs).map(Number).sort(function(a,b){return a-b;});
+  var any = false;
+  var html = '<div class="card"><h2>Shared Reflections from the Group</h2>';
+  chapters.forEach(function(ch){
+    var r = refs[ch];
+    if(r.shared && (r.q1||r.q2||r.q3)){
+      any = true;
+      html += '<div class="reflection shared"><div class="meta">Proverbs '+ch+' &mdash; shared by '+esc(r.by||'')+' &middot; '+esc(r.date||'')+'</div>';
+      if(r.q1) html += '<p><strong>Favorite verse(s):</strong> '+esc(r.q1)+'</p>';
+      if(r.q2) html += '<p><strong>To apply:</strong> '+esc(r.q2)+'</p>';
+      if(r.q3) html += '<p><strong>Want to discuss:</strong> '+esc(r.q3)+'</p>';
+      html += '</div>';
+    }
+  });
+  // show private marker for today's private reflection
+  var today = new Date().getDate();
+  var tr = refs[today];
+  if(tr && !tr.shared && (tr.q1||tr.q2||tr.q3)){
+    any = true;
+    html += '<div class="reflection"><div class="meta">Proverbs '+today+' &mdash; private (visible only to you)</div>';
+    if(tr.q1) html += '<p><strong>Favorite verse(s):</strong> '+esc(tr.q1)+'</p>';
+    if(tr.q2) html += '<p><strong>To apply:</strong> '+esc(tr.q2)+'</p>';
+    if(tr.q3) html += '<p><strong>Want to discuss:</strong> '+esc(tr.q3)+'</p>';
+    html += '</div>';
   }
-};
-
-// ========== STATE ==========
-let state = {
-  user: store.get('user', null),
-  group: store.get('group', null),
-  answers: store.get('answers', {}),
-  messages: store.get('messages', []),
-  bibleVersion: store.get('bibleVersion', 'NKJV')
-};
-
-function saveState() {
-  store.set('user', state.user);
-  store.set('group', state.group);
-  store.set('answers', state.answers);
-  store.set('messages', state.messages);
-  store.set('bibleVersion', state.bibleVersion);
+  if(!any) html += '<p class="muted">Nothing shared yet. Check the "Share with group" box when you save a reflection to post it here.</p>';
+  return html + '</div>';
 }
 
-// ========== CONSTANTS ==========
-const MONTHS_31 = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
-const BIBLE_VERSIONS = ['NKJV', 'KJV', 'ESV', 'NIV', 'NLT'];
-
-const RECOMMENDATIONS = [
-  'Read early in your day.',
-  'But better late than never.',
-  "Share immediately when a verse connects with one of those questions for you. Don't wait.",
-  'Respond to each other if you have thoughts about what we text each other.'
-];
-
-// ========== ROUTER ==========
-function render() {
-  renderNav();
-  if (!state.user) return showSignup();
-  if (!state.group) return showCreateGroup();
-  showDashboard();
+function leaderToolsView(){
+  var g = getGroup();
+  var targets = ['Whole Group'].concat(g.members.filter(function(m){ return m !== g.leader; }));
+  var msgs = getMessages();
+  var html = '<div class="card"><h2>Leader Tools</h2>'+
+    '<form id="msgForm"><label for="msgTarget">Send to</label>'+
+    '<select id="msgTarget">'+targets.map(function(t){ return '<option>'+esc(t)+'</option>'; }).join('')+'</select>'+
+    '<label for="msgBody">Encouragement / accountability message</label>'+
+    '<textarea id="msgBody" maxlength="1500" placeholder="Write a word of encouragement or a gentle accountability nudge..."></textarea>'+
+    '<div style="margin-top:.8rem"><button type="submit" class="primary">Send Message</button></div>'+
+    '<div id="msgFeedback"></div></form>';
+  if(msgs.length){
+    html += '<h3>Recently sent</h3>';
+    html += msgs.slice(0,3).map(function(m){
+      return '<div class="msg"><div class="meta">To '+esc(m.to)+' &middot; '+esc(m.date)+'</div>'+esc(m.body)+'</div>';
+    }).join('');
+  }
+  return html + '</div>';
 }
 
-function renderNav() {
-  const nav = document.getElementById('mainNav');
-  if (!state.user) { nav.innerHTML = ''; return; }
-  nav.innerHTML = `
-    <button onclick="showDashboard()">Dashboard</button>
-    <button onclick="showGroup()">Group</button>
-    <button onclick="showMessages()">Messages</button>
-    <button onclick="logout()">Logout</button>
-  `;
+function groupView(){
+  var user = getUser(), g = getGroup();
+  if(!g) return '<div class="card"><h2>Group</h2><p class="muted">No study group created yet.</p>'+
+    '<form id="groupForm" style="margin-top:1rem">'+
+    '<label for="gName">Group name</label><input type="text" id="gName" required maxlength="80">'+
+    '<label for="gMembers">Add members (one per line, as "name, phone or email")</label>'+
+    '<textarea id="gMembers" rows="5" placeholder="Sarah Johnson, sarah@example.com&#10;Mike Peters, 555-0142"></textarea>'+
+    '<p class="note">Note: web apps cannot access your phone contacts &mdash; that requires a native app. Please type member details above.</p>'+
+    '<label for="gLeader">Study leader</label><select id="gLeader"></select>'+
+    '<label>Study months (31-day months only)</label><div class="chips" id="monthChips">'+
+    STUDY_MONTHS.map(function(m){ return '<button type="button" class="chip" data-month="'+m+'">'+m+'</button>'; }).join('')+'</div>'+
+    '<label for="gVersion">Preferred Bible version</label>'+
+    '<select id="gVersion">'+VERSIONS.map(function(v){ return '<option>'+v+'</option>'; }).join('')+'</select>'+
+    '<div style="margin-top:1rem"><button type="submit" class="primary">Save Group</button></div>'+
+    '<div id="groupFeedback"></div></form></div>';
+  var html = '<div class="card"><h2>'+esc(g.name)+'</h2>'+
+    '<p><strong>Leader:</strong> '+esc(g.leader)+'<span class="badge">Leader</span></p>'+
+    '<p><strong>Study months:</strong> '+g.months.map(esc).join(', ')+'</p>'+
+    '<p><strong>Bible version:</strong> '+esc(g.version)+'</p>'+
+    '<h3>Members ('+g.members.length+')</h3>';
+  g.members.forEach(function(m, i){
+    html += '<div class="member"><span>'+esc(m)+(m===g.leader?'<span class="badge">Leader</span>':'')+'</span><span class="muted">'+esc(g.contacts[i]||'')+'</span></div>';
+  });
+  html += '<div style="margin-top:1rem"><button class="secondary" id="editGroup">Edit Group</button></div></div>';
+  return html;
 }
 
-// ========== SIGNUP ==========
-function showSignup() {
-  document.getElementById('app').innerHTML = `
-    <div class="card">
-      <h2>Welcome to Proverbs Study Group</h2>
-      <p>Set up your profile to begin your 31-day journey through the book of Proverbs.</p>
-      <label>Your Name</label>
-      <input id="name" placeholder="e.g., Sarah Johnson" />
-      <label>Email</label>
-      <input id="email" type="email" placeholder="you@example.com" />
-      <button class="primary" onclick="signup()">Get Started</button>
-    </div>
-  `;
+function messagesView(){
+  var msgs = getMessages();
+  var html = '<div class="card"><h2>Messages</h2>';
+  if(!msgs.length) html += '<p class="muted">No messages sent yet.'+(getGroup()&&getUser().name===getGroup().leader?' Use Leader Tools on the Dashboard to send one.':'')+'</p>';
+  else msgs.forEach(function(m){
+    html += '<div class="msg"><div class="meta">To '+esc(m.to)+' &middot; '+esc(m.date)+'</div>'+esc(m.body)+'</div>';
+  });
+  return html + '</div>';
 }
 
-function signup() {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  if (!name || !email) { alert('Please enter both name and email.'); return; }
-  state.user = { name, email, id: Date.now().toString() };
-  saveState();
-  render();
-}
+/* ---------- Event wiring ---------- */
+function wire(){
+  var app = document.getElementById('app');
 
-// ========== CREATE GROUP ==========
-function showCreateGroup() {
-  document.getElementById('app').innerHTML = `
-    <div class="card">
-      <h2>Create Your Study Group</h2>
-      <label>Group Name</label>
-      <input id="groupName" placeholder="e.g., Morning Wisdom" />
-
-      <label>Add Group Members (name and phone or email, one per line)</label>
-      <textarea id="members" placeholder="John Doe, john@email.com&#10;Jane Smith, 555-1234"></textarea>
-      <p style="font-size:0.85rem;color:#777;">
-        Note: Web apps cannot access your phone's contacts directly (that requires a native app).
-        Enter each contact manually above.
-      </p>
-
-      <label>Select the Study Leader</label>
-      <select id="leaderSelect">
-        <option value="__me">${state.user.name} (You)</option>
-      </select>
-
-      <label>Select Study Months (only 31-day months available)</label>
-      <div class="month-grid" id="monthGrid"></div>
-
-      <label>Preferred Bible Version</label>
-      <select id="version">
-        ${BIBLE_VERSIONS.map(v => `<option value="${v}">${v}</option>`).join('')}
-      </select>
-
-      <button class="primary" onclick="createGroup()">Create Group</button>
-    </div>
-  `;
-
-  const grid = document.getElementById('monthGrid');
-  MONTHS_31.forEach(m => {
-    const chip = document.createElement('div');
-    chip.className = 'month-chip';
-    chip.textContent = m;
-    chip.onclick = () => chip.classList.toggle('selected');
-    grid.appendChild(chip);
+  // Signup
+  var sf = document.getElementById('signupForm');
+  if(sf) sf.addEventListener('submit', function(e){
+    e.preventDefault();
+    LS.set('user', { name: document.getElementById('suName').value.trim(), email: document.getElementById('suEmail').value.trim() });
+    currentView = 'dashboard';
+    render();
+    requestNotify();
   });
 
-  document.getElementById('members').addEventListener('input', updateLeaderDropdown);
-}
-
-function updateLeaderDropdown() {
-  const raw = document.getElementById('members').value;
-  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  const sel = document.getElementById('leaderSelect');
-  sel.innerHTML = `<option value="__me">${state.user.name} (You)</option>`;
-  lines.forEach((line, idx) => {
-    const name = line.split(',')[0].trim();
-    sel.innerHTML += `<option value="${idx}">${name}</option>`;
+  // Nav
+  app.querySelectorAll('[data-nav]').forEach(function(b){
+    b.addEventListener('click', function(){ currentView = b.getAttribute('data-nav'); render(); });
   });
-}
+  var lo = app.querySelector('[data-logout]');
+  if(lo) lo.addEventListener('click', function(){
+    if(confirm('Log out? This will clear all locally saved data (profile, group, reflections, messages).')){
+      LS.clear();
+      currentView = 'dashboard';
+      render();
+    }
+  });
 
-function createGroup() {
-  const groupName = document.getElementById('groupName').value.trim();
-  const raw = document.getElementById('members').value;
-  const memberLines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  const selectedMonths = [...document.querySelectorAll('.month-chip.selected')].map(el => el.textContent);
-  const leaderVal = document.getElementById('leaderSelect').value;
-  const version = document.getElementById('version').value;
+  // Version switcher
+  app.querySelectorAll('[data-version]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var g = getGroup();
+      if(g){ g.version = b.getAttribute('data-version'); LS.set('group', g); }
+      render();
+    });
+  });
 
-  if (!groupName) { alert('Group name required'); return; }
-  if (selectedMonths.length === 0) { alert('Select at least one month'); return; }
-
-  const members = [
-    { name: state.user.name, contact: state.user.email, id: 'me' },
-    ...memberLines.map((line, idx) => {
-      const [name, contact] = line.split(',').map(s => (s || '').trim());
-      return { name, contact: contact || '', id: `m${idx}` };
-    })
-  ];
-
-  const leaderId = leaderVal === '__me' ? 'me' : `m${leaderVal}`;
-
-  state.group = {
-    name: groupName,
-    members,
-    leaderId,
-    months: selectedMonths,
-    createdAt: new Date().toISOString()
-  };
-  state.bibleVersion = version;
-  saveState();
-  render();
-}
-
-// ========== DASHBOARD ==========
-function showDashboard() {
-  const today = new Date();
-  const day = today.getDate();
-  const monthName = today.toLocaleString('default', { month: 'long' });
-  const isStudyMonth = state.group.months.includes(monthName);
-  const chapter = (day >= 1 && day <= 31) ? day : 1;
-
-  const leader = state.group.members.find(m => m.id === state.group.leaderId);
-  const isLeader = state.group.leaderId === 'me';
-
-  document.getElementById('app').innerHTML = `
-    <div class="card">
-      <div class="chapter-header">
-        <h2>Proverbs ${chapter}</h2>
-        <div>
-          <strong>${monthName} ${day}, ${today.getFullYear()}</strong>
-          ${isStudyMonth ? '' : '<span style="color:#c00;"> (Not a scheduled study month)</span>'}
-        </div>
-      </div>
-
-      <div class="tips">
-        <strong>💡 Recommendations:</strong>
-        <ul>${RECOMMENDATIONS.map(r => `<li>${r}</li>`).join('')}</ul>
-      </div>
-
-      <h3>Read Proverbs ${chapter} (${state.bibleVersion})</h3>
-      <div class="bible-links">
-        <a href="https://www.biblegateway.com/passage/?search=Proverbs+${chapter}&version=${state.bibleVersion}" target="_blank">Bible Gateway</a>
-        <a href="https://www.biblehub.com/proverbs/${chapter}.htm" target="_blank">Bible Hub</a>
-        <a href="https://www.bible.com/bible/search/search?q=Proverbs%20${chapter}" target="_blank">YouVersion</a>
-      </div>
-      <label>Change Bible Version</label>
-      <select onchange="changeVersion(this.value)">
-        ${BIBLE_VERSIONS.map(v => `<option ${v === state.bibleVersion ? 'selected' : ''}>${v}</option>`).join('')}
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>Today's Reflection Questions</h3>
-      ${renderQuestionForm(chapter)}
-    </div>
-
-    <div class="card">
-      <h3>Shared Reflections from the Group</h3>
-      ${renderSharedAnswers(chapter)}
-    </div>
-
-    ${isLeader ? renderLeaderTools() : ''}
-    <p style="text-align:center;color:#777;font-size:0.9rem;">
-      Study Leader: <strong>${leader.name}</strong>
-      ${isLeader ? '<span class="leader-badge">You</span>' : ''}
-    </p>
-  `;
-}
-
-function renderQuestionForm(chapter) {
-  const key = `chapter-${chapter}`;
-  const saved = state.answers[key] || { q1: '', q2: '', q3: '', shared: { q1: false, q2: false, q3: false } };
-
-  return `
-    <label>1. Favorite verse or verses from the chapter? Why?</label>
-    <textarea id="q1">${saved.q1}</textarea>
-    <div class="share-toggle">
-      <input type="checkbox" id="s1" ${saved.shared.q1 ? 'checked' : ''}/>
-      <label for="s1">Share with group</label>
-    </div>
-
-    <label>2. A verse or verses that you think God is wanting to apply? How?</label>
-    <textarea id="q2">${saved.q2}</textarea>
-    <div class="share-toggle">
-      <input type="checkbox" id="s2" ${saved.shared.q2 ? 'checked' : ''}/>
-      <label for="s2">Share with group</label>
-    </div>
-
-    <label>3. A verse that you don't quite understand or want to talk about a little more.</label>
-    <textarea id="q3">${saved.q3}</textarea>
-    <div class="share-toggle">
-      <input type="checkbox" id="s3" ${saved.shared.q3 ? 'checked' : ''}/>
-      <label for="s3">Share with group</label>
-    </div>
-
-    <button class="primary" onclick="saveAnswers(${chapter})">Save Reflections</button>
-  `;
-}
-
-function saveAnswers(chapter) {
-  const key = `chapter-${chapter}`;
-  state.answers[key] = {
-    q1: document.getElementById('q1').value,
-    q2: document.getElementById('q2').value,
-    q3: document.getElementById('q3').value,
-    shared: {
-      q1: document.getElementById('s1').checked,
-      q2: document.getElementById('s2').checked,
-      q3: document.getElementById('s3').checked
-    },
-    date: new Date().toISOString(),
-    userName: state.user.name
-  };
-  saveState();
-  alert('Reflections saved!');
-  showDashboard();
-}
-
-function renderSharedAnswers(chapter) {
-  const key = `chapter-${chapter}`;
-  const mine = state.answers[key];
-  let html = '';
-  if (mine) {
-    const questions = [
-      { q: 'Favorite verse', a: mine.q1, shared: mine.shared.q1 },
-      { q: 'Verse God is applying', a: mine.q2, shared: mine.shared.q2 },
-      { q: 'Verse to discuss', a: mine.q3, shared: mine.shared.q3 }
-    ];
-
-    questions.forEach(item => {
-      if (item.shared && item.a) {
-        html += `<div class="answer-block shared">
-          <strong>${state.user.name}</strong> — <em>${item.q}</em>
-          <p>${item.a}</p>
-        </div>`;
+  // Group form
+  var gf = document.getElementById('groupForm');
+  if(gf){
+    var selectedMonths = [];
+    var chips = document.getElementById('monthChips');
+    chips.addEventListener('click', function(e){
+      var t = e.target.closest('[data-month]'); if(!t) return;
+      var m = t.getAttribute('data-month');
+      var i = selectedMonths.indexOf(m);
+      if(i===-1){ selectedMonths.push(m); t.classList.add('on'); }
+      else { selectedMonths.splice(i,1); t.classList.remove('on'); }
+    });
+    function refreshLeaderOptions(){
+      var sel = document.getElementById('gLeader');
+      var user = getUser();
+      var members = [user.name];
+      document.getElementById('gMembers').value.split('\n').forEach(function(line){
+        var name = line.split(',')[0].trim();
+        if(name && members.indexOf(name)===-1) members.push(name);
+      });
+      sel.innerHTML = members.map(function(m){ return '<option>'+esc(m)+'</option>'; }).join('');
+    }
+    document.getElementById('gMembers').addEventListener('input', refreshLeaderOptions);
+    refreshLeaderOptions();
+    gf.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!selectedMonths.length){
+        document.getElementById('groupFeedback').innerHTML = '<div class="warn">Please select at least one study month.</div>';
+        return;
       }
+      var user = getUser();
+      var contacts = [], members = [user.name];
+      document.getElementById('gMembers').value.split('\n').forEach(function(line){
+        var parts = line.split(',');
+        var name = (parts[0]||'').trim();
+        var contact = parts.slice(1).join(',').trim();
+        if(name && name !== user.name){ members.push(name); contacts.push(contact); }
+      });
+      LS.set('group', {
+        name: document.getElementById('gName').value.trim(),
+        leader: document.getElementById('gLeader').value,
+        members: members, contacts: contacts,
+        months: selectedMonths.slice(),
+        version: document.getElementById('gVersion').value
+      });
+      render();
     });
   }
-  return html || '<p style="color:#777;">No shared reflections yet. Check the "Share with group" boxes above to share yours.</p>';
-}
 
-function renderLeaderTools() {
-  return `
-    <div class="card">
-      <h3>👑 Leader Tools</h3>
-      <label>Send an encouragement or accountability message</label>
-      <textarea id="leaderMsg" placeholder="Great job everyone! Keep pressing on..."></textarea>
-      <label>Send to</label>
-      <select id="msgTarget">
-        <option value="group">Whole Group</option>
-        ${state.group.members.filter(m => m.id !== 'me').map(m => `<option value="${m.id}">${m.name}</option>`).join('')}
-      </select>
-      <button class="primary" onclick="sendLeaderMessage()">Send Message</button>
-    </div>
-  `;
-}
+  var eg = document.getElementById('editGroup');
+  if(eg) eg.addEventListener('click', function(){ LS.set('group', null); render(); });
 
-function sendLeaderMessage() {
-  const text = document.getElementById('leaderMsg').value.trim();
-  const target = document.getElementById('msgTarget').value;
-  if (!text) return;
-  const targetName = target === 'group' ? 'Whole Group' :
-    state.group.members.find(m => m.id === target).name;
-  state.messages.push({
-    from: state.user.name,
-    to: targetName,
-    text,
-    date: new Date().toISOString()
+  // Reflection form
+  var rf = document.getElementById('reflectionForm');
+  if(rf) rf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ch = rf.getAttribute('data-chapter');
+    var refs = getReflections();
+    var user = getUser();
+    refs[ch] = {
+      q1: document.getElementById('q1').value.trim(),
+      q2: document.getElementById('q2').value.trim(),
+      q3: document.getElementById('q3').value.trim(),
+      shared: document.getElementById('shareChk').checked,
+      by: user.name,
+      date: new Date().toLocaleDateString()
+    };
+    LS.set('reflections', refs);
+    document.getElementById('reflectionMsg').innerHTML = '<div class="success">Reflection saved for Proverbs '+ch+(refs[ch].shared?' and shared with the group.':' (kept private).')+'</div>';
+    // refresh shared section without wiping form inputs
+    var shared = document.getElementById('app');
+    var tmp = document.createElement('div');
+    tmp.innerHTML = sharedReflectionsView();
+    var old = document.querySelectorAll('.card');
+    var newCard = tmp.firstElementChild;
+    // Insert updated shared card after the reflection form's card
+    rf.closest('.card').after(newCard);
+    // remove the old shared card (the next sibling now)
+    var next = newCard.nextElementSibling;
+    if(next && next.querySelector && next.querySelector('h2') && next.querySelector('h2').textContent.indexOf('Shared Reflections')===0) next.remove();
   });
-  saveState();
-  alert('Message sent!');
-  showDashboard();
-}
 
-function changeVersion(v) {
-  state.bibleVersion = v;
-  saveState();
-  showDashboard();
-}
-
-// ========== GROUP VIEW ==========
-function showGroup() {
-  const leader = state.group.members.find(m => m.id === state.group.leaderId);
-  document.getElementById('app').innerHTML = `
-    <div class="card">
-      <h2>${state.group.name}</h2>
-      <p><strong>Study Months:</strong> ${state.group.months.join(', ')}</p>
-      <p><strong>Leader:</strong> ${leader.name}</p>
-      <h3>Members</h3>
-      <ul class="member-list">
-        ${state.group.members.map(m => `
-          <li>
-            ${m.name}${m.id === state.group.leaderId ? '<span class="leader-badge">Leader</span>' : ''}
-            <br><small>${m.contact || 'No contact info'}</small>
-          </li>
-        `).join('')}
-      </ul>
-    </div>
-  `;
-}
-
-// ========== MESSAGES ==========
-function showMessages() {
-  document.getElementById('app').innerHTML = `
-    <div class="card">
-      <h2>Messages</h2>
-      ${state.messages.length === 0
-        ? '<p style="color:#777;">No messages yet.</p>'
-        : `<ul class="message-list">
-            ${state.messages.slice().reverse().map(m => `
-              <li>
-                <strong>${m.from}</strong> → ${m.to}<br>
-                <em>${new Date(m.date).toLocaleString()}</em>
-                <p>${m.text}</p>
-              </li>
-            `).join('')}
-          </ul>`
-      }
-    </div>
-  `;
-}
-
-// ========== LOGOUT ==========
-function logout() {
-  if (confirm('Log out and clear all local data?')) {
-    localStorage.clear();
-    state = { user: null, group: null, answers: {}, messages: [], bibleVersion: 'NKJV' };
-    render();
-  }
-}
-
-// ========== DAILY REMINDER (browser notifications) ==========
-function requestNotifications() {
-  if ('Notification' in window && Notification.permission === 'default') {
-    Notification.requestPermission();
-  }
-}
-
-function checkDailyReminder() {
-  const today = new Date().toDateString();
-  const lastReminder = localStorage.getItem('lastReminder');
-  if (lastReminder !== today && Notification.permission === 'granted') {
-    const monthName = new Date().toLocaleString('default', { month: 'long' });
-    if (state.group && state.group.months.includes(monthName)) {
-      new Notification('📖 Proverbs Study Reminder', {
-        body: `Time to read Proverbs ${new Date().getDate()} today!`
-      });
-      localStorage.setItem('lastReminder', today);
+  // Message form
+  var mf = document.getElementById('msgForm');
+  if(mf) mf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var body = document.getElementById('msgBody').value.trim();
+    if(!body){
+      document.getElementById('msgFeedback').innerHTML = '<div class="warn">Write a message first.</div>';
+      return;
     }
-  }
+    var msgs = getMessages();
+    msgs.unshift({ to: document.getElementById('msgTarget').value, body: body, date: new Date().toLocaleString() });
+    LS.set('messages', msgs);
+    document.getElementById('msgFeedback').innerHTML = '<div class="success">Message logged for '+esc(msgs[0].to)+'.</div>';
+    document.getElementById('msgBody').value = '';
+  });
 }
 
-// ========== INIT ==========
-requestNotifications();
+/* ---------- Daily reminder ---------- */
+function requestNotify(){
+  if(!('Notification' in window)) return;
+  if(Notification.permission === 'default') Notification.requestPermission();
+}
+function maybeRemind(){
+  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+  var g = getGroup(); if(!g) return;
+  var month = MONTH_NAMES[new Date().getMonth()];
+  if(g.months.indexOf(month) === -1) return;
+  var today = new Date().toDateString();
+  if(LS.get('lastRemind','') === today) return;
+  var day = new Date().getDate();
+  try{
+    new Notification('Proverbs Study Group', { body: 'Time to read Proverbs ' + day + ' (' + month + ' ' + day + ') today!' });
+    LS.set('lastRemind', today);
+  }catch(e){}
+}
+
 render();
-setInterval(checkDailyReminder, 60 * 60 * 1000);
-checkDailyReminder();
+maybeRemind();
 </script>
 </body>
 </html>
