@@ -18,7 +18,7 @@
     background-image:radial-gradient(rgba(107,68,35,.05) 1px,transparent 1px);
     background-size:22px 22px;
   }
-  header{background:linear-gradient(135deg,var(--brown),var(--brown2)); color:#f7f2e8; padding:1.1rem 1.4rem; display:flex; align-items:center; justify-content:space-between; flex-wrap;wrap; box-shadow:var(--shadow);}
+  header{background:linear-gradient(135deg,var(--brown),var(--brown2)); color:#f7f2e8; padding:1.1rem 1.4rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; box-shadow:var(--shadow);}
   header h1{font-size:1.35rem; letter-spacing:.5px; display:flex; align-items:center; gap:.55rem;}
   header h1 .logo{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--brown);align-items:center;justify-content:center;font-weight:bold;font-size:1.05rem;}
   nav{display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.5rem;}
@@ -112,7 +112,7 @@ var currentView = 'dashboard';
 function render(){
   var app = document.getElementById('app');
   var user = getUser();
-  if(!user){ app.innerHTML = authView(); wire(); return; }
+  if(!user){ app.innerHTML = authView(); return; }
   var html = shellStart(user);
   if(currentView === 'dashboard') html += dashboardView();
   else if(currentView === 'group') html += groupView();
@@ -321,7 +321,13 @@ function wire(){
   });
 
   // Version switcher
-  app.querySelectorAll('[data-version]').forEach(function { });
+  app.querySelectorAll('[data-version]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var g = getGroup();
+      if(g){ g.version = b.getAttribute('data-version'); LS.set('group', g); }
+      render();
+    });
+  });
 
   // Group form
   var gf = document.getElementById('groupForm');
@@ -376,7 +382,7 @@ function wire(){
   if(eg) eg.addEventListener('click', function(){ LS.set('group', null); render(); });
 
   // Reflection form
-  var rf = document.getElementById('refllectionForm');
+  var rf = document.getElementById('reflectionForm');
   if(rf) rf.addEventListener('submit', function(e){
     e.preventDefault();
     var ch = rf.getAttribute('data-chapter');
@@ -388,7 +394,7 @@ function wire(){
       q3: document.getElementById('q3').value.trim(),
       shared: document.getElementById('shareChk').checked,
       by: user.name,
-      date: new Date().toLocaleString()
+      date: new Date().toLocaleDateString()
     };
     LS.set('reflections', refs);
     document.getElementById('reflectionMsg').innerHTML = '<div class="success">Reflection saved for Proverbs '+ch+(refs[ch].shared?' and shared with the group.':' (kept private).')+'</div>';
@@ -446,4 +452,3 @@ maybeRemind();
 </script>
 </body>
 </html>
-
